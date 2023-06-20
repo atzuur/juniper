@@ -90,7 +90,7 @@ class GeneralCommands(commands.Cog):
     @member_info.error
     async def info_error(inter: disnake.AppCmdInter, error):
         if isinstance(error, commands.BadArgument):
-            await inter.send("Sprry, couldn't find that member", ephemeral=True)
+            await inter.send("Sorry, I couldn't find that member", ephemeral=True)
 
 
 def setup(bot: commands.Bot):
