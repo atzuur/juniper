@@ -18,7 +18,7 @@ logger.addHandler(handler)
 bot = commands.InteractionBot(
     intents=disnake.Intents.all(),
     test_guilds=[1115670885702041640],
-    activity=disnake.Game(name="With Code")
+    activity=disnake.Game("With Code")
 )
 
 @bot.event
