@@ -18,11 +18,13 @@ logger.addHandler(handler)
 bot = commands.InteractionBot(
     intents=disnake.Intents.all(),
     test_guilds=[1115670885702041640],
-    activity=disnake.Game("With Code")
+    activity=disnake.Game("Code")
 )
 
 @bot.event
 async def on_ready():
     print("The bot is online!")
+
+bot.load_extension("cogs.general")
 
 bot.run(TOKEN)
