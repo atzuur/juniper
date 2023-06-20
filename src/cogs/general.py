@@ -27,7 +27,7 @@ class GeneralCommands(commands.Cog):
 
         embed = disnake.Embed(
             color=SUCCESS,
-            title=f"{user.mention}'s avatar"
+            title=f"{user.name.capitalize()}'s Avatar"
         )
 
         embed.set_image(user.display_avatar)
@@ -46,7 +46,7 @@ class GeneralCommands(commands.Cog):
 
         embed = disnake.Embed(color=SUCCESS)
 
-        embed.set_author(name=member, icon_url=member.display_avatar)
+        embed.set_author(name=member.name.capitalize(), icon_url=member.display_avatar)
         embed.set_thumbnail(member.display_avatar)
 
         embed.add_field(
