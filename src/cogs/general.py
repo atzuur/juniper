@@ -83,8 +83,7 @@ class GeneralCommands(commands.Cog):
                 value=", ".join(role.mention for role in roles),
                 inline=False
             )
-
-        
+  
         await inter.send(embed=embed)  
 
     @member_info.error
