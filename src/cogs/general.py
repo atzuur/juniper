@@ -110,7 +110,7 @@ class General(commands.Cog):
             raise commands.BadArgument("Dice amount exceeds the limit")
         
         outcome = random.randint(1, size)
-        msg = f"{inter.author.name} rolled a d{size} and got {outcome}".capitalize()
+        msg = f"{inter.author.name} rolled a d{size} and got **{outcome}**".capitalize()
 
         if amount > 1:
             outcomes = []
@@ -119,7 +119,7 @@ class General(commands.Cog):
                 i += 1
 
             outcomes = ", ".join(str(outcome) for outcome in outcomes)
-            msg = f"{inter.author.name} rolled {amount} d{size}'s and got {outcomes}".capitalize()
+            msg = f"{inter.author.name} rolled {amount} d{size}'s and got **{outcomes}**".capitalize()
 
         embed = disnake.Embed(
             color=cfg.SUCCESS,
