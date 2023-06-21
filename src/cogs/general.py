@@ -155,8 +155,11 @@ class General(commands.Cog):
 
         if len(msg.stickers) == 0:
             raise commands.BadArgument("Sorry, that message doesn't contain a sticker")
+        
+        sticker = msg.stickers[0]
 
-        sticker = msg.stickers[0] # sticker id, so we can get info from it
+        if sticker.format == disnake.StickerFormatType.lottie:
+            raise commands.BadArgument("Sorry, stickers of format 'lottie' can't be stolen (this is normal for certain stickers)")
 
         embed = disnake.Embed(
             color=cfg.SUCCESS,
