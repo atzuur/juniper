@@ -29,7 +29,7 @@ class General(commands.Cog):
 
         embed = disnake.Embed(
             color=cfg.SUCCESS,
-            title=f"{user.name.capitalize()}'s Avatar"
+            title=f"{user.display_name}'s Avatar"
         )
 
         embed.set_image(user.display_avatar)
@@ -48,12 +48,18 @@ class General(commands.Cog):
 
         embed = disnake.Embed(color=cfg.SUCCESS)
 
-        embed.set_author(name=user.name.capitalize(), icon_url=user.display_avatar)
+        embed.set_author(name=f"{user.display_name}", icon_url=user.display_avatar)
         embed.set_thumbnail(user.display_avatar)
 
         embed.add_field(
             name="ID",
             value=user.id,
+            inline=False
+        )
+
+        embed.add_field(
+            name="Username",
+            value=user,
             inline=False
         )
 
@@ -110,7 +116,7 @@ class General(commands.Cog):
             raise commands.BadArgument("Dice amount exceeds the limit")
         
         outcome = random.randint(1, size)
-        msg = f"{inter.author.name} rolled a d{size} and got **{outcome}**".capitalize()
+        msg = f"{inter.author.mention} rolled a d{size} and got **{outcome}**"
 
         if amount > 1:
             outcomes = []
@@ -119,7 +125,7 @@ class General(commands.Cog):
                 i += 1
 
             outcomes = ", ".join(str(outcome) for outcome in outcomes)
-            msg = f"{inter.author.name} rolled {amount} d{size}'s and got **{outcomes}**".capitalize()
+            msg = f"{inter.author.mention} rolled {amount} d{size}'s and got **{outcomes}**"
 
         embed = disnake.Embed(
             color=cfg.SUCCESS,
