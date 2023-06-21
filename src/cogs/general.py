@@ -88,7 +88,7 @@ class General(commands.Cog):
 
             roles = user.roles[1:] # exclude @everyone
             
-            if len(roles) > 0:
+            if roles:
                 embed.add_field(
                     name=f"Roles [{len(roles)}]",
                     value=", ".join(role.mention for role in roles),
@@ -115,17 +115,15 @@ class General(commands.Cog):
         if amount > 20:
             raise commands.BadArgument("Dice amount exceeds the limit")
         
-        outcome = random.randint(1, size)
-        msg = f"{inter.author.mention} rolled a d{size} and got **{outcome}**"
+        outcome = []
+        for i in range(amount):
+            outcome.append(random.randint(1, size))
 
-        if amount > 1:
-            outcomes = []
-            for i in range(amount):
-                outcomes.append(random.randint(1, size))
-                i += 1
+        outcome = ", ".join(str(outcome) for outcome in outcome)
+        msg = f"{inter.author.mention} rolled {amount} d{size}'s and got **{outcome}**"
 
-            outcomes = ", ".join(str(outcome) for outcome in outcomes)
-            msg = f"{inter.author.mention} rolled {amount} d{size}'s and got **{outcomes}**"
+        if amount == 1:
+            msg = f"{inter.author.mention} rolled a d{size}'s and got **{outcome}**"
 
         embed = disnake.Embed(
             color=cfg.SUCCESS,
@@ -153,7 +151,7 @@ class General(commands.Cog):
     async def steal_sticker(self, inter: disnake.MessageCommandInteraction, msg: disnake.Message):
         """Steals a sticker"""
 
-        if len(msg.stickers) == 0:
+        if not msg.stickers:
             raise commands.BadArgument("Sorry, that message doesn't contain a sticker")
         
         sticker = msg.stickers[0]
