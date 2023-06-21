@@ -93,6 +93,7 @@ class General(commands.Cog):
 
             embed = disnake.Embed(
                 color=cfg.ERROR,
+                title="Error",
                 description="Sorry, I couldn't find that member"
             )
 
