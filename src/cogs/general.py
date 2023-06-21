@@ -3,6 +3,8 @@ from disnake.ext import commands
 
 import config as cfg
 
+import random
+
 
 class General(commands.Cog):
 
@@ -89,6 +91,56 @@ class General(commands.Cog):
   
         await inter.send(embed=embed)  
 
+
+    @commands.slash_command()
+    async def roll(inter: disnake.AppCmdInter, size: int, amount: int = 1):
+        """
+        Roll dice
+
+        Parameters
+        ----------
+        size: Size of dice (limit of 100)
+        amount: Amount of dice to roll (limit of 20)
+        """
+
+        if size > 100:
+            raise commands.BadArgument("Dice size exceeds the limit")
+
+        if amount > 20:
+            raise commands.BadArgument("Dice amount exceeds the limit")
+        
+        outcome = random.randint(1, size)
+        msg = f"{inter.author.name} rolled a d{size} and got {outcome}".capitalize()
+
+        if amount > 1:
+            outcomes = []
+            for i in range(amount):
+                outcomes.append(random.randint(1, size))
+                i += 1
+
+            outcomes = ", ".join(str(outcome) for outcome in outcomes)
+            msg = f"{inter.author.name} rolled {amount} d{size}'s and got {outcomes}".capitalize()
+
+        embed = disnake.Embed(
+            color=cfg.SUCCESS,
+            title="Dice Roll",
+            description=msg
+        )
+
+        await inter.send(embed=embed)
+
+
+    @roll.error
+    async def roll_error(self, inter: disnake.AppCmdInter, error):
+        if isinstance(error, commands.BadArgument):
+
+            embed = disnake.Embed(
+                color=cfg.ERROR,
+                title="Error",
+                description=error
+            )
+
+            await inter.send(embed=embed, ephemeral=True)
 
 def setup(bot: commands.Bot):
     bot.add_cog(General(bot))
