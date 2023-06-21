@@ -38,5 +38,6 @@ class Sudo(commands.Cog):
 
             await inter.send(embed=embed, ephemeral=True)
 
+
 def setup(bot: commands.Bot):
     bot.add_cog(Sudo(bot))
