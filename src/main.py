@@ -1,4 +1,4 @@
-\import logging
+import logging
 
 import disnake
 from disnake.ext import commands
