@@ -3,7 +3,7 @@ import logging
 import disnake
 from disnake.ext import commands
 
-from config import TOKEN
+import config as cfg
 
 
 # the recommended logging setup 
@@ -27,4 +27,4 @@ async def on_ready():
 
 bot.load_extension("cogs.general")
 
-bot.run(TOKEN)
+bot.run(cfg.TOKEN)
