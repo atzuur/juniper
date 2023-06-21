@@ -143,12 +143,12 @@ class General(commands.Cog):
             await inter.send(embed=embed, ephemeral=True)
 
 
-    @commands.message_command()
+    @commands.message_command(name="Steal Sticker")
     async def steal_sticker(self, inter: disnake.MessageCommandInteraction, msg: disnake.Message):
         """Steals a sticker"""
 
         if len(msg.stickers) == 0:
-            raise commands.BadArgument("Sorry, I couldn't find that sticker")
+            raise commands.BadArgument("Sorry, that message doesn't contain a sticker")
 
         sticker = msg.stickers[0] # sticker id, so we can get info from it
 
