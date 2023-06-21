@@ -123,7 +123,7 @@ class General(commands.Cog):
         msg = f"{inter.author.mention} rolled {amount} d{size}'s and got **{outcome}**"
 
         if amount == 1:
-            msg = f"{inter.author.mention} rolled a d{size}'s and got **{outcome}**"
+            msg = f"{inter.author.mention} rolled a d{size} and got **{outcome}**"
 
         embed = disnake.Embed(
             color=cfg.SUCCESS,
