@@ -1,4 +1,4 @@
-import logging
+\import logging
 
 import disnake
 from disnake.ext import commands
@@ -26,5 +26,6 @@ async def on_ready():
     print("The bot is online!")
 
 bot.load_extension("cogs.general")
+bot.load_extension("cogs.sudo")
 
 bot.run(cfg.TOKEN)
