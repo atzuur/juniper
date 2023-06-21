@@ -35,69 +35,59 @@ class General(commands.Cog):
 
 
     @commands.slash_command()
-    async def member_info(inter: disnake.AppCmdInter, member: disnake.Member):
+    async def whois(inter: disnake.AppCmdInter, user: disnake.Member | disnake.User):
         """
-        Get info about a member
+        Get info about a user
 
         Parameters
         ----------
-        member: Mention a member or enter their ID
+        user: Mention a user or enter their ID
         """
 
         embed = disnake.Embed(color=cfg.SUCCESS)
 
-        embed.set_author(name=member.name.capitalize(), icon_url=member.display_avatar)
-        embed.set_thumbnail(member.display_avatar)
+        embed.set_author(name=user.name.capitalize(), icon_url=user.display_avatar)
+        embed.set_thumbnail(user.display_avatar)
 
         embed.add_field(
             name="ID",
-            value=member.id,
+            value=user.id,
             inline=False
         )
 
-        creation_date = f"<t:{int(member.created_at.timestamp())}:R>"
+        creation_date = f"<t:{int(user.created_at.timestamp())}:R>"
+
         embed.add_field(
             name="Created",
             value=creation_date,
             inline=False
         )
 
-        join_date = f"<t:{int(member.joined_at.timestamp())}:R>"
-        embed.add_field(
-            name="Joined",
-            value=join_date,
-            inline=False
-        )
+        if isinstance(user, disnake.Member):
+            join_date = f"<t:{int(user.joined_at.timestamp())}:R>"
 
-        embed.add_field(
-            name="Status",
-            value=member.status.name.capitalize(),
-            inline=False
-        )
-
-        roles = member.roles[1:] # exclude @everyone
-        
-        if len(roles) > 0:
             embed.add_field(
-                name=f"Roles [{len(roles)}]",
-                value=", ".join(role.mention for role in roles),
+                name="Joined",
+                value=join_date,
                 inline=False
             )
-  
-        await inter.send(embed=embed)  
 
-
-    @member_info.error
-    async def member_info_error(self, inter: disnake.AppCmdInter, error):
-        if isinstance(error, commands.MemberNotFound):
-
-            embed = disnake.Embed(
-                color=cfg.ERROR,
-                title="Error",
-                description="Sorry, I couldn't find that member"
+            embed.add_field(
+                name="Status",
+                value=user.status.name.capitalize(),
+                inline=False
             )
 
-            await inter.send(embed=embed, ephemeral=True)
+            roles = user.roles[1:] # exclude @everyone
+            
+            if len(roles) > 0:
+                embed.add_field(
+                    name=f"Roles [{len(roles)}]",
+                    value=", ".join(role.mention for role in roles),
+                    inline=False
+                )
+  
+        await inter.send(embed=embed)  
 
 
 def setup(bot: commands.Bot):
