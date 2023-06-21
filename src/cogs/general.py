@@ -1,10 +1,10 @@
 import disnake
 from disnake.ext import commands
 
-from config import SUCCESS
+import config as cfg
 
 
-class GeneralCommands(commands.Cog):
+class General(commands.Cog):
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot
@@ -26,7 +26,7 @@ class GeneralCommands(commands.Cog):
         """
 
         embed = disnake.Embed(
-            color=SUCCESS,
+            color=cfg.SUCCESS,
             title=f"{user.name.capitalize()}'s Avatar"
         )
 
@@ -44,7 +44,7 @@ class GeneralCommands(commands.Cog):
         member: Mention a member or enter their ID
         """
 
-        embed = disnake.Embed(color=SUCCESS)
+        embed = disnake.Embed(color=cfg.SUCCESS)
 
         embed.set_author(name=member.name.capitalize(), icon_url=member.display_avatar)
         embed.set_thumbnail(member.display_avatar)
@@ -86,11 +86,18 @@ class GeneralCommands(commands.Cog):
   
         await inter.send(embed=embed)  
 
+
     @member_info.error
-    async def info_error(inter: disnake.AppCmdInter, error):
-        if isinstance(error, commands.BadArgument):
-            await inter.send("Sorry, I couldn't find that member", ephemeral=True)
+    async def member_info_error(self, inter: disnake.AppCmdInter, error):
+        if isinstance(error, commands.MemberNotFound):
+
+            embed = disnake.Embed(
+                color=cfg.ERROR,
+                description="Sorry, I couldn't find that member"
+            )
+
+            await inter.send(embed=embed, ephemeral=True)
 
 
 def setup(bot: commands.Bot):
-    bot.add_cog(GeneralCommands(bot))
+    bot.add_cog(General(bot))
