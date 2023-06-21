@@ -142,5 +142,38 @@ class General(commands.Cog):
 
             await inter.send(embed=embed, ephemeral=True)
 
+
+    @commands.message_command()
+    async def steal_sticker(self, inter: disnake.MessageCommandInteraction, msg: disnake.Message):
+        """Steals a sticker"""
+
+        if len(msg.stickers) == 0:
+            raise commands.BadArgument("Sorry, I couldn't find that sticker")
+
+        sticker = msg.stickers[0] # sticker id, so we can get info from it
+
+        embed = disnake.Embed(
+            color=cfg.SUCCESS,
+            title=f"Sticker Stolen: {sticker.name}"
+        )
+
+        embed.set_image(sticker.url)
+
+        await inter.send(embed=embed)
+        
+    
+    @steal_sticker.error
+    async def steal_sticker_error(self, inter: disnake.MessageCommandInteraction, error):
+        if isinstance(error, commands.BadArgument):
+
+            embed = disnake.Embed(
+                color=cfg.ERROR,
+                title="Error",
+                description=error
+            )
+
+            await inter.send(embed=embed, ephemeral=True)
+
+
 def setup(bot: commands.Bot):
     bot.add_cog(General(bot))
