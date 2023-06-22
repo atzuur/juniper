@@ -20,7 +20,7 @@ class General(commands.Cog):
     @commands.slash_command()
     async def avatar(inter: disnake.AppCmdInter, user: disnake.User):
         """
-        Get a users avatar
+        Get a user's avatar
 
         Parameters
         ----------
@@ -63,7 +63,7 @@ class General(commands.Cog):
             inline=False
         )
 
-        creation_date = f"<t:{int(user.created_at.timestamp())}:R>"
+        creation_date = disnake.utils.format_dt(user.created_at, "R")
 
         embed.add_field(
             name="Created",
@@ -72,7 +72,7 @@ class General(commands.Cog):
         )
 
         if isinstance(user, disnake.Member):
-            join_date = f"<t:{int(user.joined_at.timestamp())}:R>"
+            join_date = disnake.utils.format_dt(user.joined_at, "R")
 
             embed.add_field(
                 name="Joined",
