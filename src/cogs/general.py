@@ -157,7 +157,7 @@ class General(commands.Cog):
         sticker = msg.stickers[0]
 
         if sticker.format == disnake.StickerFormatType.lottie:
-            raise commands.BadArgument("Sorry, stickers of format 'lottie' can't be stolen (this is normal for certain stickers)")
+            raise commands.BadArgument("Sorry, stickers of format type 'lottie' can't be stolen (this happens with some stickers, working on a fix)")
 
         embed = disnake.Embed(
             color=cfg.SUCCESS,
