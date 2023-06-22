@@ -119,7 +119,7 @@ class General(commands.Cog):
         for i in range(amount):
             outcome.append(random.randint(1, size))
 
-        outcome = ", ".join(str(outcome) for outcome in outcome)
+        outcome = ", ".join(str(i) for i in outcome)
         msg = f"{inter.author.mention} rolled {amount} d{size}'s and got **{outcome}**"
 
         if amount == 1:
