@@ -13,7 +13,7 @@ class General(commands.Cog):
     @commands.slash_command()
     async def ping(self, inter: disnake.AppCmdInter):
         
-        """Get the bot's current websocket latency"""
+        """Get the bot's current websocket latency."""
         await inter.send(f"Pong! {round(self.bot.latency * 1000)}ms")
 
 
@@ -21,11 +21,11 @@ class General(commands.Cog):
     async def avatar(inter: disnake.AppCmdInter, user: disnake.User):
         
         """
-        Get a user's avatar
+        Get a user's avatar.
 
         Parameters
         ----------
-        user: Mention a user or enter their ID
+        user: Mention a user or enter their ID.
         """
 
         embed = disnake.Embed(
@@ -41,11 +41,11 @@ class General(commands.Cog):
     async def whois(inter: disnake.AppCmdInter, user: disnake.Member | disnake.User):
         
         """
-        Get info about a user
+        Get info about a user.
 
         Parameters
         ----------
-        user: Mention a user or enter their ID
+        user: Mention a user or enter their ID.
         """
 
         embed = disnake.Embed(color=cfg.SUCCESS)
