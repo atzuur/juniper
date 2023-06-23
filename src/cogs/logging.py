@@ -23,6 +23,21 @@ class Logging(commands.Cog):
         
         logs_channel = self.bot.get_channel(cfg.LOGS_CHANNEL)
         await logs_channel.send(embed=embed)
+    
+        
+    @commands.Cog.listener()
+    async def on_slash_command_error(self, inter: disnake.AppCmdInter, error: commands.CommandError):
+        
+        embed = disnake.Embed(
+            color=cfg.ERROR,
+            title=f"Command Failed: {inter.data.name}",
+            description=f"Error: {error}"
+        )
+        
+        embed.set_author(name=inter.author, icon_url=inter.author.display_avatar)
+        
+        logs_channel = self.bot.get_channel(cfg.LOGS_CHANNEL)
+        await logs_channel.send(embed=embed)
         
         
 def setup(bot: commands.Bot):
