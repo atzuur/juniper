@@ -5,7 +5,6 @@ from disnake.ext import commands
 
 import config as cfg
 
-
 # the recommended logging setup 
 # https://docs.disnake.dev/en/stable/logging.html
 logger = logging.getLogger("disnake")
