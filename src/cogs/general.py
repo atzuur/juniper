@@ -72,6 +72,7 @@ class General(commands.Cog):
         )
 
         if isinstance(user, disnake.Member):
+            
             embed.add_field(
                 name="Joined",
                 value=disnake.utils.format_dt(user.joined_at, "R"),
@@ -94,7 +95,6 @@ class General(commands.Cog):
                 )
   
         await inter.send(embed=embed)  
-
 
 
 def setup(bot: commands.Bot):
