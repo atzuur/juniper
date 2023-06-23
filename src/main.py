@@ -24,6 +24,7 @@ bot = commands.InteractionBot(
 async def on_ready():
     print("The bot is online!")
 
+bot.load_extension("cogs.logging")
 bot.load_extension("cogs.general")
 bot.load_extension("cogs.sudo")
 
