@@ -3,8 +3,7 @@ from disnake.ext import commands
 
 import config as cfg
 
-# only the bot OWNER can run sudo commands
-
+# sudo commands for the bot owner
 
 class Sudo(commands.Cog):
 
@@ -25,7 +24,7 @@ class Sudo(commands.Cog):
         await inter.send(embed=embed)
         await self.bot.close()
 
-    
+
     @shutdown.error
     async def shutdown_error(self, inter: disnake.AppCmdInter, error):
         if isinstance(error, commands.NotOwner):
@@ -33,7 +32,7 @@ class Sudo(commands.Cog):
             embed = disnake.Embed(
                 color=cfg.ERROR,
                 title="Error",
-                description="Sorry, you don't have permissions for that"
+                description=error
             )
 
             await inter.send(embed=embed, ephemeral=True)
