@@ -93,3 +93,4 @@ class General(commands.Cog):
 
 def setup(bot: commands.Bot):
     bot.add_cog(General(bot))
+    print(f"{__name__} is ready.")
