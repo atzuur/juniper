@@ -40,3 +40,4 @@ class Sudo(commands.Cog):
 
 def setup(bot: commands.Bot):
     bot.add_cog(Sudo(bot))
+    print(f"{__name__} is ready.")
