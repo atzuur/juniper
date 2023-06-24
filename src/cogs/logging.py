@@ -23,7 +23,7 @@ class Logging(commands.Cog):
         embed = disnake.Embed(
             color=cfg.SUCCESS,
             title=f"Command Executed",
-            description=f"{author} executed **{command}**"
+            description=f"{author} executed **{command}**."
         )
         
         embed.set_author(name=inter.author, icon_url=inter.author.display_avatar)
@@ -41,7 +41,7 @@ class Logging(commands.Cog):
         embed = disnake.Embed(
             color=cfg.ERROR,
             title=f"Command Failed",
-            description=f"{author} failed to execute **{command}**\n Error: {error}"
+            description=f"{author} failed to execute **{command}**.\n\n**Error**: {error}"
         )
         
         embed.set_author(name=inter.author, icon_url=inter.author.display_avatar)
