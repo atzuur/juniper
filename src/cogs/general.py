@@ -18,7 +18,8 @@ class General(commands.Cog):
 
 
     @commands.slash_command()
-    async def avatar(inter: disnake.AppCmdInter, user: disnake.User | disnake.Member, profile: str = commands.Param(choices=["user", "guild"])):
+    async def avatar(inter: disnake.AppCmdInter, user: disnake.User | disnake.Member, 
+                     profile: str = commands.Param(choices=["user", "guild"])):
         
         """
         Get a user's avatar.
