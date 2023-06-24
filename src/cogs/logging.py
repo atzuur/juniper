@@ -14,9 +14,16 @@ class Logging(commands.Cog):
     @commands.Cog.listener()
     async def on_slash_command(self, inter: disnake.AppCmdInter):
         
+        if inter.command_failed:
+            return
+        
+        author = inter.author.mention
+        command = inter.data.name
+        
         embed = disnake.Embed(
             color=cfg.SUCCESS,
-            title=f"Executed Command: {inter.data.name}",
+            title=f"Command Executed",
+            description=f"{author} executed **{command}**"
         )
         
         embed.set_author(name=inter.author, icon_url=inter.author.display_avatar)
@@ -28,10 +35,13 @@ class Logging(commands.Cog):
     @commands.Cog.listener()
     async def on_slash_command_error(self, inter: disnake.AppCmdInter, error: commands.CommandError):
         
+        author = inter.author.mention
+        command = inter.data.name
+        
         embed = disnake.Embed(
             color=cfg.ERROR,
-            title=f"Command Failed: {inter.data.name}",
-            description=f"Error: {error}"
+            title=f"Command Failed",
+            description=f"{author} failed to execute **{command}**\n Error: {error}"
         )
         
         embed.set_author(name=inter.author, icon_url=inter.author.display_avatar)
@@ -42,3 +52,4 @@ class Logging(commands.Cog):
         
 def setup(bot: commands.Bot):
     bot.add_cog(Logging(bot))
+    print(f"{__name__} is ready.")
