@@ -18,7 +18,7 @@ class General(commands.Cog):
 
 
     @commands.slash_command()
-    async def avatar(inter: disnake.AppCmdInter, user: disnake.User):
+    async def avatar(inter: disnake.AppCmdInter, user: disnake.User | disnake.Member, profile: str = commands.Param(choices=["user", "guild"])):
         
         """
         Get a user's avatar.
@@ -26,15 +26,37 @@ class General(commands.Cog):
         Parameters
         ----------
         user: Mention a user or enter their ID.
+        profile: Which profile to get the avatar from.
         """
 
         embed = disnake.Embed(
             color=cfg.SUCCESS,
-            title=f"Avatar for {user}"
+            title=f"Avatar for {user.mention}"
         )
-
-        embed.set_image(user.display_avatar)
+        
+        if profile == "user":
+            embed.set_image(user.avatar or user.default_avatar)
+            
+        elif profile == "guild":
+            if isinstance(user, disnake.Member) and user.guild_avatar is not None:
+                embed.set_image(user.guild_avatar)
+            else:
+                raise commands.BadArgument(f"{user.mention} doesn't have a guild avatar set.")   
+        
         await inter.send(embed=embed)
+
+
+    @avatar.error
+    async def avatar_error(self, inter: disnake.AppCmdInter, error):
+        if isinstance(error, commands.BadArgument):
+
+            embed = disnake.Embed(
+                color=cfg.ERROR,
+                title="Error",
+                description=error
+            )
+
+            await inter.send(embed=embed, ephemeral=True)
 
 
     @commands.slash_command()
@@ -48,7 +70,10 @@ class General(commands.Cog):
         user: Mention a user or enter their ID.
         """
 
-        embed = disnake.Embed(color=cfg.SUCCESS)
+        embed = disnake.Embed(
+            color=cfg.SUCCESS,
+            title=user.mention
+        )
         
         embed.set_author(name=user, icon_url=user.display_avatar)
         embed.set_thumbnail(user.display_avatar)
