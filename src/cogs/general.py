@@ -19,7 +19,7 @@ class General(commands.Cog):
 
     @commands.slash_command()
     async def avatar(inter: disnake.AppCmdInter, user: disnake.User | disnake.Member, 
-                     profile: str = commands.Param(choices=["user", "guild"])):
+                     profile: str = commands.Param(choices=["User Profile", "Server Profile"])):
         
         """
         Get a user's avatar.
@@ -35,15 +35,15 @@ class General(commands.Cog):
             title=f"Avatar for {user.mention}"
         )
         
-        if profile == "user":
+        if profile == "User Profile":
             embed.set_image(user.avatar or user.default_avatar)
             
-        elif profile == "guild":
+        elif profile == "Server Profile":
             if not isinstance(user, disnake.Member):
                 raise commands.MemberNotFound(user)
             
             if not user.guild_avatar:
-                raise commands.BadArgument(f"{user.mention} doesn't have a guild avatar set.")
+                raise commands.BadArgument(f"{user.mention} doesn't have a server avatar set.")
             
             embed.set_image(user.guild_avatar)
             
