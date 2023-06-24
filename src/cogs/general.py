@@ -50,7 +50,7 @@ class General(commands.Cog):
 
         embed = disnake.Embed(color=cfg.SUCCESS)
         
-        embed.set_author(name=f"{user}", icon_url=user.display_avatar)
+        embed.set_author(name=user, icon_url=user.display_avatar)
         embed.set_thumbnail(user.display_avatar)
 
         embed.add_field(
