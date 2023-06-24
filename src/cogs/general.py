@@ -39,17 +39,20 @@ class General(commands.Cog):
             embed.set_image(user.avatar or user.default_avatar)
             
         elif profile == "guild":
-            if isinstance(user, disnake.Member) and user.guild_avatar is not None:
-                embed.set_image(user.guild_avatar)
-            else:
-                raise commands.BadArgument(f"{user.mention} doesn't have a guild avatar set.")   
-        
+            if not isinstance(user, disnake.Member):
+                raise commands.MemberNotFound(user)
+            
+            if not user.guild_avatar:
+                raise commands.BadArgument(f"{user.mention} doesn't have a guild avatar set.")
+            
+            embed.set_image(user.guild_avatar)
+            
         await inter.send(embed=embed)
 
 
     @avatar.error
-    async def avatar_error(self, inter: disnake.AppCmdInter, error):
-        if isinstance(error, commands.BadArgument):
+    async def avatar_error(self, inter: disnake.AppCmdInter, error: commands.CommandError):
+        if isinstance(error, commands.BadArgument or commands.UserNotFound):
 
             embed = disnake.Embed(
                 color=cfg.ERROR,
