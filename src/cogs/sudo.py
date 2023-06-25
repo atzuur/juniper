@@ -26,7 +26,7 @@ class Sudo(commands.Cog):
 
 
     @shutdown.error
-    async def shutdown_error(self, inter: disnake.AppCmdInter, error):
+    async def shutdown_error(self, inter: disnake.AppCmdInter, error: commands.CommandError):
         if isinstance(error, commands.NotOwner):
 
             embed = disnake.Embed(
