@@ -52,4 +52,4 @@ class Logging(commands.Cog):
         
 def setup(bot: commands.Bot):
     bot.add_cog(Logging(bot))
-    print(f"{__name__} is ready.")
+    print(f"{__name__} is ready")
