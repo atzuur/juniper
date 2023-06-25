@@ -13,46 +13,70 @@ class General(commands.Cog):
     @commands.slash_command()
     async def ping(self, inter: disnake.AppCmdInter):
         
-        """Get the bot's current websocket latency."""
+        """Get the bot's current websocket latency"""
         await inter.send(f"Pong! {round(self.bot.latency * 1000)}ms")
 
 
     @commands.slash_command()
-    async def avatar(inter: disnake.AppCmdInter, user: disnake.User | disnake.Member, 
-                     profile: str = commands.Param(choices=["User Profile", "Server Profile"])):
+    async def avatar(self, inter: disnake.AppCmdInter):
+        pass
+    
+
+    @avatar.sub_command()
+    async def user(inter: disnake.AppCmdInter, user: disnake.User = None):
         
         """
-        Get a user's avatar.
+        Get a user's avatar
 
         Parameters
         ----------
-        user: Mention a user or enter their ID.
-        profile: Which profile to get the avatar from.
+        user: Mention a user or enter their ID
         """
-
+        
+        if user is None:
+            user = inter.author
+        
         embed = disnake.Embed(
             color=cfg.SUCCESS,
-            title=f"Avatar for {user.mention}"
+            title=f"{user.mention}'s avatar"
         )
         
-        if profile == "User Profile":
-            embed.set_image(user.avatar or user.default_avatar)
+        embed.set_image(user.avatar or user.default_avatar)
+        await inter.send(embed=embed)
+
+
+    @avatar.sub_command()
+    async def server(inter: disnake.AppCmdInter, member: disnake.Member = None):
+        
+        """
+        Get a user's server avatar
+
+        Parameters
+        ----------
+        user: Mention a user or enter their ID
+        """
+        
+        if member is None:
+            member = inter.author
             
-        elif profile == "Server Profile":
-            if not isinstance(user, disnake.Member):
-                raise commands.MemberNotFound(user)
-            
-            if not user.guild_avatar:
-                raise commands.BadArgument(f"{user.mention} doesn't have a server avatar set.")
-            
-            embed.set_image(user.guild_avatar)
-            
+        if not isinstance(member, disnake.Member):
+            raise commands.MemberNotFound(member)
+    
+        if not member.guild_avatar:
+            raise commands.BadArgument(f"{member.mention} doesn't have a server avatar set.")
+        
+        embed = disnake.Embed(
+            color=cfg.SUCCESS,
+            title=f"{member.mention}'s guild avatar"
+        )
+        
+        embed.set_image(member.guild_avatar)
         await inter.send(embed=embed)
 
 
     @avatar.error
-    async def avatar_error(self, inter: disnake.AppCmdInter, error: commands.CommandError):
-        if isinstance(error, commands.BadArgument or commands.UserNotFound):
+    async def avatar_error(self, inter: disnake.AppCmdInter, error):
+        if isinstance(error, commands.BadArgument or commands.MemberNotFound):
 
             embed = disnake.Embed(
                 color=cfg.ERROR,
@@ -67,11 +91,11 @@ class General(commands.Cog):
     async def whois(inter: disnake.AppCmdInter, user: disnake.Member | disnake.User):
         
         """
-        Get info about a user.
+        Get info about a user
 
         Parameters
         ----------
-        user: Mention a user or enter their ID.
+        user: Mention a user or enter their ID
         """
 
         embed = disnake.Embed(
@@ -122,4 +146,4 @@ class General(commands.Cog):
 
 def setup(bot: commands.Bot):
     bot.add_cog(General(bot))
-    print(f"{__name__} is ready.")
+    print(f"{__name__} is ready")
