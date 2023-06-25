@@ -13,7 +13,7 @@ class Sudo(commands.Cog):
     @commands.is_owner()
     @commands.slash_command()
     async def shutdown(self, inter: disnake.AppCmdInter):
-        """Shutdown the bot (owner only)."""
+        """Shutdown the bot (owner only)"""
 
         embed = disnake.Embed(
             color=cfg.SUCCESS,
@@ -40,4 +40,4 @@ class Sudo(commands.Cog):
 
 def setup(bot: commands.Bot):
     bot.add_cog(Sudo(bot))
-    print(f"{__name__} is ready.")
+    print(f"{__name__} is ready")
