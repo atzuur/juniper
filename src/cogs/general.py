@@ -67,7 +67,7 @@ class General(commands.Cog):
         
         embed = disnake.Embed(
             color=cfg.SUCCESS,
-            title=f"{member.mention}'s guild avatar"
+            title=f"{member.mention}'s server avatar"
         )
         
         embed.set_image(member.guild_avatar)
@@ -88,7 +88,7 @@ class General(commands.Cog):
 
 
     @commands.slash_command()
-    async def whois(inter: disnake.AppCmdInter, user: disnake.Member | disnake.User):
+    async def whois(inter: disnake.AppCmdInter, user: disnake.Member | disnake.User = None):
         
         """
         Get info about a user
@@ -97,6 +97,9 @@ class General(commands.Cog):
         ----------
         user: Mention a user or enter their ID
         """
+        
+        if user is None:
+            user = inter.author
 
         embed = disnake.Embed(
             color=cfg.SUCCESS,
