@@ -23,7 +23,7 @@ class General(commands.Cog):
     
 
     @avatar.sub_command()
-    async def user(inter: disnake.AppCmdInter, user: disnake.User = None):
+    async def user(inter: disnake.AppCmdInter, user: disnake.User | disnake.Member = None):
         
         """
         Get a user's avatar
@@ -49,11 +49,11 @@ class General(commands.Cog):
     async def server(inter: disnake.AppCmdInter, member: disnake.Member = None):
         
         """
-        Get a user's server avatar
+        Get a member's server avatar (if one is set)
 
         Parameters
         ----------
-        user: Mention a user or enter their ID
+        member: Mention a member or enter their ID
         """
         
         if member is None:
@@ -75,7 +75,7 @@ class General(commands.Cog):
 
 
     @avatar.error
-    async def avatar_error(self, inter: disnake.AppCmdInter, error):
+    async def avatar_error(self, inter: disnake.AppCmdInter, error: commands.CommandError):
         if isinstance(error, commands.BadArgument or commands.MemberNotFound):
 
             embed = disnake.Embed(
@@ -88,7 +88,7 @@ class General(commands.Cog):
 
 
     @commands.slash_command()
-    async def whois(inter: disnake.AppCmdInter, user: disnake.Member | disnake.User = None):
+    async def whois(inter: disnake.AppCmdInter, user: disnake.User | disnake.Member = None):
         
         """
         Get info about a user
