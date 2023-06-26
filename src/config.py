@@ -58,7 +58,7 @@ emojis = {
     "server": "<:bl_server:1122942730964828271>",
     "shield": "<:bl_shield:1122921132421562501>",
     "news": "<:bl_news:1122920916876275835>",
-    "slash cmd": "<:bl_slashcmd:1122921187803144212>",
+    "slashcmd": "<:bl_slashcmd:1122921187803144212>",
     "star": "<:bl_star:1122920868264284211>",
     "sticker": "<:bl_sticker:1122921443085275296>",
     "tag": "<:bl_tag:1122943273485475963>",
