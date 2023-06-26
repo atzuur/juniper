@@ -26,11 +26,11 @@ class General(commands.Cog):
     async def user(inter: disnake.AppCmdInter, user: disnake.User | disnake.Member = None):
         
         """
-        Get a user's avatar
+        Gets a user's avatar
 
         Parameters
         ----------
-        user: Mention a user or enter their ID
+        user: User to fetch the avatar from
         """
         
         if user is None:
@@ -38,7 +38,7 @@ class General(commands.Cog):
         
         embed = disnake.Embed(
             color=cfg.SUCCESS,
-            title=f"{user.mention}'s avatar"
+            title=f"Avatar for {user.mention}"
         )
         
         embed.set_image(user.avatar or user.default_avatar)
@@ -46,14 +46,14 @@ class General(commands.Cog):
 
 
     @avatar.sub_command()
-    async def server(inter: disnake.AppCmdInter, member: disnake.Member = None):
+    async def guild(inter: disnake.AppCmdInter, member: disnake.Member = None):
         
         """
-        Get a member's server avatar (if one is set)
+        Gets a member's guild avatar (if they have one set)
 
         Parameters
         ----------
-        member: Mention a member or enter their ID
+        member: Member to fetch the avatar from
         """
         
         if member is None:
@@ -63,11 +63,11 @@ class General(commands.Cog):
             raise commands.MemberNotFound(member)
     
         if not member.guild_avatar:
-            raise commands.BadArgument(f"{member.mention} doesn't have a server avatar set.")
+            raise commands.BadArgument(f"{member.mention} doesn't have a guild avatar set.")
         
         embed = disnake.Embed(
             color=cfg.SUCCESS,
-            title=f"{member.mention}'s server avatar"
+            title=f"Guild avatar for {member.mention}"
         )
         
         embed.set_image(member.guild_avatar)
@@ -91,11 +91,11 @@ class General(commands.Cog):
     async def whois(inter: disnake.AppCmdInter, user: disnake.User | disnake.Member = None):
         
         """
-        Get info about a user
+        Gets info about a user
 
         Parameters
         ----------
-        user: Mention a user or enter their ID
+        user: User to fetch info from
         """
         
         if user is None:
