@@ -14,7 +14,7 @@ ERROR = 0xf24b4b
 LOGS_CHANNEL = 1121592213663662171
 
 # custom emojis used in embeds etc
-emojis = {
+EMOJIS = {
     "num_0": "<:bl_0:1122919509355937832>",
     "num_1": "<:bl_1:1122919560132169821>",
     "num_2": "<:bl_2:1122919598933692508>",
