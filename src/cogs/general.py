@@ -13,7 +13,7 @@ class General(commands.Cog):
     @commands.slash_command()
     async def ping(self, inter: disnake.AppCmdInter):
         
-        """Get the bot's current websocket latency"""
+        """Gets the bot's current websocket latency"""
         await inter.send(f"Pong! {round(self.bot.latency * 1000)}ms")
 
 
@@ -46,31 +46,31 @@ class General(commands.Cog):
 
 
     @avatar.sub_command()
-    async def guild(inter: disnake.AppCmdInter, member: disnake.Member = None):
+    async def guild(inter: disnake.AppCmdInter, user: disnake.Member = None):
         
         """
-        Gets a member's guild avatar (if they have one set)
+        Gets a users's guild avatar (if they have one set)
 
         Parameters
         ----------
-        member: Member to fetch the avatar from
+        user: User to fetch the avatar from
         """
         
-        if member is None:
-            member = inter.author
+        if user is None:
+            user = inter.author
             
-        if not isinstance(member, disnake.Member):
-            raise commands.MemberNotFound(member)
+        if not isinstance(user, disnake.Member):
+            raise commands.MemberNotFound(user)
     
-        if not member.guild_avatar:
-            raise commands.BadArgument(f"{member.mention} doesn't have a guild avatar set.")
+        if not user.guild_avatar:
+            raise commands.BadArgument(f"{user.mention} doesn't have a guild avatar set.")
         
         embed = disnake.Embed(
             color=cfg.SUCCESS,
-            title=f"Guild avatar for {member.mention}"
+            title=f"Guild avatar for {user.mention}"
         )
         
-        embed.set_image(member.guild_avatar)
+        embed.set_image(user.guild_avatar)
         await inter.send(embed=embed)
 
 
