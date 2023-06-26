@@ -165,25 +165,25 @@ class General(commands.Cog):
         embed.set_author(name=guild.name, icon_url=guild.icon)
         embed.set_thumbnail(guild.icon)
         
-        guild_info = f"""
-{cfg.emojis["owner"]} | Owner: {guild.owner.mention}
-{cfg.emojis["rocket"]} | Created: {disnake.utils.format_dt(guild.created_at, "R")}
-{cfg.emojis["member"]} | Members: {guild.member_count}
-{cfg.emojis["boost"]} | Boost Level: {guild.premium_tier}"""
+        emojis = cfg.EMOJIS
         
-        if detailed:
-            guild_info += f"""
-{cfg.emojis["tag"]} | Roles: {len(guild.roles)}
-{cfg.emojis["channel"]} | Channels: {len(guild.channels)}
-{cfg.emojis["chat"]} | Threads: {len(guild.threads)}
-{cfg.emojis["star"]} | Emojis: {len(guild.emojis)}
-{cfg.emojis["sticker"]} | Stickers: {len(guild.stickers)}"""
-
-        embed.add_field(
-            name="Guild Info",
-            value=guild_info
+        guild_info = (
+            f"{emojis['owner']} | Owner: {guild.owner.mention} \n",
+            f"{emojis['rocket']} | Created: {disnake.utils.format_dt(guild.created_at, 'R')} \n",
+            f"{emojis['member']} | Members: {guild.member_count} \n",
+            f"{emojis['boost']} | Boost Level: {guild.premium_tier} \n"   
         )
-        
+
+        if detailed:
+            guild_info += (
+                f"{emojis['tag']} | Roles: {len(guild.roles)} \n",
+                f"{emojis['channel']} | Channels: {len(guild.channels)} \n",
+                f"{emojis['chat']} | Threads: {len(guild.threads)} \n",
+                f"{emojis['star']} | Emojis: {len(guild.emojis)} \n",
+                f"{emojis['sticker']} | Stickers: {len(guild.stickers)} \n",   
+            )
+
+        embed.add_field(name="Guild Info", value=guild_info)
         await inter.send(embed=embed)
 
 
