@@ -169,8 +169,7 @@ class General(commands.Cog):
 {cfg.emojis["owner"]} | Owner: {guild.owner.mention}
 {cfg.emojis["rocket"]} | Created: {disnake.utils.format_dt(guild.created_at, "R")}
 {cfg.emojis["member"]} | Members: {guild.member_count}
-{cfg.emojis["boost"]} | Boost Level: {guild.premium_tier}
-"""
+{cfg.emojis["boost"]} | Boost Level: {guild.premium_tier}"""
         
         if detailed:
             guild_info += f"""
@@ -178,8 +177,7 @@ class General(commands.Cog):
 {cfg.emojis["channel"]} | Channels: {len(guild.channels)}
 {cfg.emojis["chat"]} | Threads: {len(guild.threads)}
 {cfg.emojis["star"]} | Emojis: {len(guild.emojis)}
-{cfg.emojis["sticker"]} | Stickers: {len(guild.stickers)}
-"""
+{cfg.emojis["sticker"]} | Stickers: {len(guild.stickers)}"""
 
         embed.add_field(
             name="Guild Info",
