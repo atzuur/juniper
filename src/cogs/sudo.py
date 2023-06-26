@@ -13,7 +13,7 @@ class Sudo(commands.Cog):
     @commands.is_owner()
     @commands.slash_command()
     async def shutdown(self, inter: disnake.AppCmdInter):
-        """Shutdown the bot (owner only)"""
+        """Shuts down the bot (owner only)"""
 
         embed = disnake.Embed(
             color=cfg.SUCCESS,
