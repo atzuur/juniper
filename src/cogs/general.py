@@ -166,7 +166,7 @@ class General(commands.Cog):
         
         embed.add_field(
             name="Members",
-            value=f"Total: {inter.guild.member_count}"
+            value=f"{inter.guild.member_count}"
         )
         
         embed.add_field(
