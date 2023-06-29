@@ -6,9 +6,9 @@ load_dotenv()
 TOKEN = os.getenv("TOKEN")
 
 # embed colors
-SUCCESS = 0x4bf288
-WARNING = 0xf2d64b
-ERROR = 0xf24b4b
+SUCCESS = 0x44C1FF
+WARNING = 0xffc744
+ERROR = 0xff4444
 
 # logging
 LOGS_CHANNEL = 1123803520890581022
