@@ -160,18 +160,13 @@ class General(commands.Cog):
         )
         
         embed.add_field(
-            name="ID",
-            value=inter.guild.id
-        )
-        
-        embed.add_field(
             name="Created",
             value=disnake.utils.format_dt(inter.guild.created_at, "R")
         )
         
         embed.add_field(
             name="Members",
-            value=inter.guild.member_count
+            value=f"Total: {inter.guild.member_count}"
         )
         
         embed.add_field(
