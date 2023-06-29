@@ -147,46 +147,6 @@ class General(commands.Cog):
         await inter.send(embed=embed)  
 
 
-    @commands.slash_command()
-    async def guild_info(self, inter: disnake.AppCmdInter, 
-                         detailed: bool = commands.param(choices=[True, False], default=False)):
-        
-        """
-        Gets info about the guild
-
-        Parameters
-        ----------
-        detailed: Whether to show more details or not
-        """
-        
-        guild = inter.guild
-         
-        embed = disnake.Embed(color=cfg.SUCCESS)
-        embed.set_author(name=guild.name, icon_url=guild.icon)
-        embed.set_thumbnail(guild.icon)
-        
-        emojis = cfg.EMOJIS
-        
-        guild_info = (
-            f"{emojis['owner']} | Owner: {guild.owner.mention} \n"
-            f"{emojis['rocket']} | Created: {disnake.utils.format_dt(guild.created_at, 'R')} \n"
-            f"{emojis['member']} | Members: {guild.member_count} \n"
-            f"{emojis['boost']} | Boost Level: {guild.premium_tier} \n"   
-        )
-
-        if detailed:
-            guild_info += (
-                f"{emojis['tag']} | Roles: {len(guild.roles)} \n"
-                f"{emojis['channel']} | Channels: {len(guild.channels)} \n"
-                f"{emojis['chat']} | Threads: {len(guild.threads)} \n"
-                f"{emojis['star']} | Emojis: {len(guild.emojis)} \n"
-                f"{emojis['sticker']} | Stickers: {len(guild.stickers)} \n" 
-            )
-
-        embed.add_field(name="Guild Info", value=guild_info)
-        await inter.send(embed=embed)
-
-
 def setup(bot: commands.Bot):
     bot.add_cog(General(bot))
     print(f"{__name__} is ready")
