@@ -102,7 +102,6 @@ class General(commands.Cog):
             user = inter.author
 
         embed = disnake.Embed(color=cfg.SUCCESS)
-        
         embed.set_author(name=user, icon_url=user.display_avatar)
         embed.set_thumbnail(user.display_avatar)
 
@@ -166,7 +165,7 @@ class General(commands.Cog):
         
         embed.add_field(
             name="Members",
-            value=f"{inter.guild.member_count}"
+            value=inter.guild.member_count
         )
         
         embed.add_field(
