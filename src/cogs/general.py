@@ -101,7 +101,7 @@ class General(commands.Cog):
         if user is None:
             user = inter.author
 
-        embed = disnake.Embed(color=cfg.SUCCESS,)
+        embed = disnake.Embed(color=cfg.SUCCESS)
         
         embed.set_author(name=user, icon_url=user.display_avatar)
         embed.set_thumbnail(user.display_avatar)
@@ -142,6 +142,45 @@ class General(commands.Cog):
                 )
   
         await inter.send(embed=embed)  
+
+
+    @commands.slash_command()
+    async def guild_info(inter: disnake.AppCmdInter):
+        
+        """Gets info about the guild"""
+        
+        embed = disnake.Embed(color=cfg.SUCCESS)
+        
+        embed.set_thumbnail(inter.guild.icon)
+        embed.set_author(name=inter.guild.name, icon_url=inter.guild.icon)
+        
+        embed.add_field(
+            name="Owner",
+            value=inter.guild.owner.mention
+        )
+        
+        embed.add_field(
+            name="ID",
+            value=inter.guild.id
+        )
+        
+        embed.add_field(
+            name="Created",
+            value=disnake.utils.format_dt(inter.guild.created_at, "R")
+        )
+        
+        embed.add_field(
+            name="Members",
+            value=inter.guild.member_count
+        )
+        
+        embed.add_field(
+            name="Boost Level",
+            value=inter.guild.premium_tier
+        )
+        
+        await inter.send(embed=embed)
+
 
 
 def setup(bot: commands.Bot):
